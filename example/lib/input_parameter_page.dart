@@ -4,8 +4,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:identity_verification_flutter_sdk/models/identity_verification_localization.dart';
+import 'package:identity_verification_flutter_sdk/models/liveness_localization.dart';
 
 class InputParameterPage extends StatefulWidget {
   const InputParameterPage({super.key});
@@ -394,10 +393,9 @@ class _InputParameterPageState extends State<InputParameterPage> {
                                       enableAlpha: false,
                                     )
                                   : null,
-                              localization:
-                                  IdentityVerificationLocalization.fromJson(
-                                    jsonDecode(localization.text),
-                                  ),
+                              localization: LivenessLocalization.fromJson(
+                                jsonDecode(localization.text),
+                              ),
                               // captureText: captureTextMap,
                             ),
                           ),

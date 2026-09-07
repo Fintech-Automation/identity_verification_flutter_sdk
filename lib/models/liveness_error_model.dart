@@ -1,13 +1,13 @@
-class IdentityVerificationErrorModel {
+class LivenessErrorModel {
   /// Where the failure occurred.
   /// 'camera' | 'createSession' | 'getResults' | 'aws' | 'config'
   String? stage;
   String? message;
   dynamic cause;
 
-  IdentityVerificationErrorModel({this.stage, this.message, this.cause});
+  LivenessErrorModel({this.stage, this.message, this.cause});
 
-  IdentityVerificationErrorModel.fromJson(Map<String, dynamic> json) {
+  LivenessErrorModel.fromJson(Map<String, dynamic> json) {
     stage = json['stage'];
     message = json['message'];
     cause = json['cause'];

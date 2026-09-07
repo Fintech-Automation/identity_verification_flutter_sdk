@@ -1,19 +1,19 @@
-class IdentityVerificationLocalization {
-  IdentityVerificationLocalizationIntro? intro;
+class LivenessLocalization {
+  LivenessLocalizationIntro? intro;
 
-  IdentityVerificationLocalizationPrepare? prepare;
+  LivenessLocalizationPrepare? prepare;
 
-  IdentityVerificationLocalizationPageElements? starting;
+  LivenessLocalizationPageElements? starting;
 
-  IdentityVerificationLocalizationPageElements? processing;
+  LivenessLocalizationPageElements? processing;
 
-  IdentityVerificationLocalizationResultElements? success;
+  LivenessLocalizationResultElements? success;
 
-  IdentityVerificationLocalizationResultElements? fail;
+  LivenessLocalizationResultElements? fail;
 
-  IdentityVerificationLocalizationPageElements? cameraPermission;
+  LivenessLocalizationPageElements? cameraPermission;
 
-  IdentityVerificationLocalization({
+  LivenessLocalization({
     this.intro,
     this.prepare,
     this.starting,
@@ -23,37 +23,29 @@ class IdentityVerificationLocalization {
     this.cameraPermission,
   });
 
-  IdentityVerificationLocalization.fromJson(Map<String, dynamic> json) {
+  LivenessLocalization.fromJson(Map<String, dynamic> json) {
     if (json['intro'] is Map) {
-      intro = IdentityVerificationLocalizationIntro.fromJson(json['intro']);
+      intro = LivenessLocalizationIntro.fromJson(json['intro']);
     }
     if (json['prepare'] is Map) {
-      prepare = IdentityVerificationLocalizationPrepare.fromJson(
-        json['prepare'],
-      );
+      prepare = LivenessLocalizationPrepare.fromJson(json['prepare']);
     }
     if (json['starting'] is Map) {
-      starting = IdentityVerificationLocalizationPageElements.fromJson(
-        json['starting'],
-      );
+      starting = LivenessLocalizationPageElements.fromJson(json['starting']);
     }
     if (json['processing'] is Map) {
-      processing = IdentityVerificationLocalizationPageElements.fromJson(
+      processing = LivenessLocalizationPageElements.fromJson(
         json['processing'],
       );
     }
     if (json['success'] is Map) {
-      success = IdentityVerificationLocalizationResultElements.fromJson(
-        json['success'],
-      );
+      success = LivenessLocalizationResultElements.fromJson(json['success']);
     }
     if (json['fail'] is Map) {
-      fail = IdentityVerificationLocalizationResultElements.fromJson(
-        json['fail'],
-      );
+      fail = LivenessLocalizationResultElements.fromJson(json['fail']);
     }
     if (json['cameraPermission'] is Map) {
-      cameraPermission = IdentityVerificationLocalizationPageElements.fromJson(
+      cameraPermission = LivenessLocalizationPageElements.fromJson(
         json['cameraPermission'],
       );
     }
@@ -72,7 +64,7 @@ class IdentityVerificationLocalization {
   }
 }
 
-class IdentityVerificationLocalizationIntro {
+class LivenessLocalizationIntro {
   String? eyebrow;
   String? title;
   String? body;
@@ -81,7 +73,7 @@ class IdentityVerificationLocalizationIntro {
   /// Small trust line under the intro CTA; pass `''` to hide.
   String? trustLabel;
 
-  IdentityVerificationLocalizationIntro({
+  LivenessLocalizationIntro({
     this.eyebrow,
     this.title,
     this.body,
@@ -89,7 +81,7 @@ class IdentityVerificationLocalizationIntro {
     this.trustLabel,
   });
 
-  IdentityVerificationLocalizationIntro.fromJson(Map<String, dynamic> json) {
+  LivenessLocalizationIntro.fromJson(Map<String, dynamic> json) {
     eyebrow = json['eyebrow'];
     title = json['title'];
     body = json['body'];
@@ -109,14 +101,12 @@ class IdentityVerificationLocalizationIntro {
   }
 }
 
-class IdentityVerificationLocalizationPageElements {
+class LivenessLocalizationPageElements {
   String? title;
   String? body;
-  IdentityVerificationLocalizationPageElements({this.title, this.body});
+  LivenessLocalizationPageElements({this.title, this.body});
 
-  IdentityVerificationLocalizationPageElements.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  LivenessLocalizationPageElements.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     body = json['body'];
   }
@@ -129,14 +119,14 @@ class IdentityVerificationLocalizationPageElements {
   }
 }
 
-class IdentityVerificationLocalizationPrepare {
+class LivenessLocalizationPrepare {
   String? eyebrow;
   String? title;
-  List<IdentityVerificationLocalizationPageElements>? tips;
+  List<LivenessLocalizationPageElements>? tips;
   String? cta;
   String? backLabel;
 
-  IdentityVerificationLocalizationPrepare({
+  LivenessLocalizationPrepare({
     this.eyebrow,
     this.title,
     this.tips,
@@ -144,14 +134,14 @@ class IdentityVerificationLocalizationPrepare {
     this.backLabel,
   });
 
-  IdentityVerificationLocalizationPrepare.fromJson(Map<String, dynamic> json) {
+  LivenessLocalizationPrepare.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     eyebrow = json['eyebrow'];
     if (json['tips'] is List) {
       tips = (json['tips'] as List)
           .where((e) => e.values.every((v) => v != null))
           .map(
-            (e) => IdentityVerificationLocalizationPageElements.fromJson(
+            (e) => LivenessLocalizationPageElements.fromJson(
               (e as Map<String, dynamic>),
             ),
           )
@@ -173,19 +163,13 @@ class IdentityVerificationLocalizationPrepare {
   }
 }
 
-class IdentityVerificationLocalizationResultElements
-    extends IdentityVerificationLocalizationPageElements {
+class LivenessLocalizationResultElements
+    extends LivenessLocalizationPageElements {
   String? cta;
 
-  IdentityVerificationLocalizationResultElements({
-    super.title,
-    super.body,
-    this.cta,
-  });
+  LivenessLocalizationResultElements({super.title, super.body, this.cta});
 
-  IdentityVerificationLocalizationResultElements.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  LivenessLocalizationResultElements.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     body = json['body'];
     cta = json['cta'];

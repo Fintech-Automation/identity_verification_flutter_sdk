@@ -1,7 +1,7 @@
-# FTA IdentityVerification SDK Overview
+# FTA Identity Verification SDK Overview
 
 `@fintech-automation/identity_verification_flutter_SDK` is a branded Flutter SDK around a managed
-IdentityVerification capture engine. It provides:
+Identity Verification capture engine. It provides:
 
 - FTA backend session creation and result lookup.
 - Built-in runtime configuration.
@@ -66,39 +66,39 @@ correctly without valid values for them.
 | Prop           | Type                     | Required | Default        | Description                                     |
 | -------------- | ------------------------ | -------- | -------------- | ----------------------------------------------- |
 | `verificationToken`  | `String`                 | Yes      | none           | Bearer token used to authenticate backend APIs. |
-| `flow`         | `IdentityVerificationFlow`           | No       | SDK defaults   | Flow behavior.                                  |
-| `brand`        | `IdentityVerificationBrand`          | No       | SDK defaults   | Brand shown in the SDK header.                  |
-| `theme`        | `IdentityVerificationTheme`          | No       | SDK defaults   | Visual system tokens.                           |
-| `localization` | `IdentityVerificationLocalization`   | No       | SDK defaults   | SDK-owned screen copy.                          |
-| `onSuccess`    | `void Function(IdentityVerificationResultModel?)`      | No       | none           | Called after the backend returns a successful IdentityVerification result.|
-| `onFail`    | `void Function(IdentityVerificationResultModel?)`      | No       | none           | Called after the backend returns a non-passing or failed result. |
-| `onError`    | `void Function(IdentityVerificationErrorModel?)`      | No       | none           | Called when a session, camera, capture, or result-fetch error occurs. |
+| `flow`         | `LivenessFlow`           | No       | SDK defaults   | Flow behavior.                                  |
+| `brand`        | `LivenessBrand`          | No       | SDK defaults   | Brand shown in the SDK header.                  |
+| `theme`        | `LivenessTheme`          | No       | SDK defaults   | Visual system tokens.                           |
+| `localization` | `LivenessLocalization`   | No       | SDK defaults   | SDK-owned screen copy.                          |
+| `onSuccess`    | `void Function(LivenessResultModel?)`      | No       | none           | Called after the backend returns a successful Liveness result.|
+| `onFail`    | `void Function(LivenessResultModel?)`      | No       | none           | Called after the backend returns a non-passing or failed result. |
+| `onError`    | `void Function(LivenessErrorModel?)`      | No       | none           | Called when a session, camera, capture, or result-fetch error occurs. |
 | `onCancel`    | `void Function()`      | No       | none           | Called when the user cancels the live capture flow. |
 | `onAnalysisComplete`    | `void Function()`      | No       | none           | Called when the capture detector finishes analysis and the SDK begins fetching backend results. |
-| `onSessionStatusChange` | `void Function(IdentityVerificationSessionStatus?)?` | No       | none              | Called after the SDK validates the token/session state. status indicates the session state, and isEligible indicates whether the session is eligible for verification. |
-| `onScreenChange`    | `void Function(IdentityVerificationScreenType?)`      | No       | none           | Called when the flow changes screens. |
+| `onSessionStatusChange` | `void Function(LivenessSessionStatus?)?` | No       | none              | Called after the SDK validates the token/session state. status indicates the session state, and isEligible indicates whether the session is eligible for verification. |
+| `onScreenChange`    | `void Function(LivenessScreenType?)`      | No       | none           | Called when the flow changes screens. |
 | `onContinue`    | `void Function()`      | No       | none           | Called when the user taps Continue on the success screen. |
 
 
 ### SessionStatus values
 
-- `COMPLETED`: The token already completed the IdentityVerification check successfully.
+- `COMPLETED`: The token already completed the liveness check successfully.
 - `EXPIRED`: The token has expired or the backend returned an auth/session-expired response.
 - `INVALID`: The token is invalid, rejected, or otherwise failed validation.
-- `READY`: Session token is valid and ready for IdentityVerification detection.
+- `READY`: Session token is valid and ready for liveness detection.
 - `RETRY_LIMIT_EXCEEDED`: Retry limit exceeded — no further attempts allowed.
 
 
 ### Result Class
 ```dart
-class IdentityVerificationResultModel {
+class LivenessResultModel {
   String? id;
   String? status;
   String? failReason;
   String? createdTime;
   String? completedTime;
 
-  IdentityVerificationResultModel({
+  LivenessResultModel({
     this.id,
     this.status,
     this.failReason,
@@ -111,7 +111,7 @@ class IdentityVerificationResultModel {
 ## Brand Class
 
 ```dart
-class IdentityVerificationBrand {
+class LivenessBrand {
   /// Brand text in the top-left chrome. Defaults to hidden.
   final String? name;
 
@@ -121,7 +121,7 @@ class IdentityVerificationBrand {
   /// Top-right security label; pass `''` to hide.
   final String? secureLabel;
 
-  const IdentityVerificationBrand({this.name, this.logoUrl, this.secureLabel});
+  const LivenessBrand({this.name, this.logoUrl, this.secureLabel});
 }
 ```
 
@@ -142,14 +142,14 @@ class IdentityVerificationBrand {
 ## Flow Class
 
 ```dart
-class IdentityVerificationFlow {
+class LivenessFlow {
   /// Starts at Prepare instead of Intro.
   final bool? skipIntro;
 
   /// Goes straight to capture after Intro, or immediately when `skipIntro` is also true.
   final bool? skipPrepare;
 
-  const IdentityVerificationFlow({this.skipIntro, this.skipPrepare});
+  const LivenessFlow({this.skipIntro, this.skipPrepare});
 
 }
 ```
@@ -163,14 +163,14 @@ class IdentityVerificationFlow {
 
 ```dart
 IdentityVerificationWidget(
-  theme: IdentityVerificationTheme(
-    colors: IdentityVerificationThemeColors(
+  theme: LivenessTheme(
+    colors: LivenessThemeColors(
     primary: '#1634A4',
     secondary: '#1A3DBF',
     heading: '#111827',
     ),
-    shape: IdentityVerificationThemeShape(radius: 22),
-    typography: IdentityVerificationThemeTypography(
+    shape: LivenessThemeShape(radius: 22),
+    typography: LivenessThemeTypography(
         fontFamily: "Inter, system-ui, sans-serif",
     ),
   ),
@@ -190,22 +190,22 @@ IdentityVerificationWidget(
 `localization` customizes SDK-owned screens and is grouped by screen.
 
 ```dart
-class IdentityVerificationLocalization {
-  IdentityVerificationLocalizationIntro? intro;
+class LivenessLocalization {
+  LivenessLocalizationIntro? intro;
 
-  IdentityVerificationLocalizationPrepare? prepare;
+  LivenessLocalizationPrepare? prepare;
 
-  IdentityVerificationLocalizationPageElements? starting;
+  LivenessLocalizationPageElements? starting;
 
-  IdentityVerificationLocalizationPageElements? processing;
+  LivenessLocalizationPageElements? processing;
 
-  IdentityVerificationLocalizationResultElements? success;
+  LivenessLocalizationResultElements? success;
 
-  IdentityVerificationLocalizationResultElements? fail;
+  LivenessLocalizationResultElements? fail;
 
-  IdentityVerificationLocalizationPageElements? cameraPermission;
+  LivenessLocalizationPageElements? cameraPermission;
 
-  IdentityVerificationLocalization({
+  LivenessLocalization({
     this.intro,
     this.prepare,
     this.starting,
@@ -216,7 +216,7 @@ class IdentityVerificationLocalization {
   });
 }
 
-class IdentityVerificationLocalizationIntro {
+class LivenessLocalizationIntro {
   String? eyebrow;
   String? title;
   String? body;
@@ -225,7 +225,7 @@ class IdentityVerificationLocalizationIntro {
   /// Small trust line under the intro CTA; pass `''` to hide.
   String? trustLabel;
 
-  IdentityVerificationLocalizationIntro({
+  LivenessLocalizationIntro({
     this.eyebrow,
     this.title,
     this.body,
@@ -234,21 +234,21 @@ class IdentityVerificationLocalizationIntro {
   });
 }
 
-class IdentityVerificationLocalizationPageElements {
+class LivenessLocalizationPageElements {
   String? title;
   String? body;
-  IdentityVerificationLocalizationPageElements({this.title, this.body});
+  LivenessLocalizationPageElements({this.title, this.body});
 
 }
 
-class IdentityVerificationLocalizationPrepare {
+class LivenessLocalizationPrepare {
   String? eyebrow;
   String? title;
-  List<IdentityVerificationLocalizationPageElements>? tips;
+  List<LivenessLocalizationPageElements>? tips;
   String? cta;
   String? backLabel;
 
-  IdentityVerificationLocalizationPrepare({
+  LivenessLocalizationPrepare({
     this.eyebrow,
     this.title,
     this.tips,
@@ -257,11 +257,11 @@ class IdentityVerificationLocalizationPrepare {
   });
 }
 
-class IdentityVerificationLocalizationResultElements
-    extends IdentityVerificationLocalizationPageElements {
+class LivenessLocalizationResultElements
+    extends LivenessLocalizationPageElements {
   String? cta;
 
-  IdentityVerificationLocalizationResultElements({super.title, super.body, this.cta});
+  LivenessLocalizationResultElements({super.title, super.body, this.cta});
 
 }
 
