@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class LivenessSessionStatus {
+class IdentityVerificationSessionStatus {
   SessionStatus? status;
   String? stage;
   String? message;
   bool? isEligible;
 
-  LivenessSessionStatus.fromJson(Map<String, dynamic> json) {
+  IdentityVerificationSessionStatus.fromJson(Map<String, dynamic> json) {
     if (json['stage'] is String) {
       try {
         status = SessionStatus.from(json['status']);

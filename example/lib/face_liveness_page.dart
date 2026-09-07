@@ -1,10 +1,10 @@
-import 'package:face_liveness_flutter_sdk/face_liveness_flutter_sdk.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_brand.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_flow.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_localization.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_session_status.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_theme.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_brand.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_flow.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_localization.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:identity_verification_flutter_sdk/widgets/identity_verification_widget.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_session_status.dart';
 
 class FaceLivenessPage extends StatefulWidget {
   const FaceLivenessPage({
@@ -36,7 +36,7 @@ class FaceLivenessPage extends StatefulWidget {
 
   final Map<String, String>? captureText;
 
-  final LivenessLocalization? localization;
+  final IdentityVerificationLocalization? localization;
 
   @override
   State<FaceLivenessPage> createState() => _FaceLivenessPageState();
@@ -46,28 +46,28 @@ class _FaceLivenessPageState extends State<FaceLivenessPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Face Liveness')),
-      body: FaceLivenessWidget(
+      appBar: AppBar(title: Text('Identity Verification')),
+      body: IdentityVerificationWidget(
         verificationToken: widget.verificationToken,
-        brand: LivenessBrand(
+        brand: IdentityVerificationBrand(
           name: widget.brandName,
           logoUrl: widget.brandLogoUrl?.isNotEmpty == true
               ? Uri.parse(widget.brandLogoUrl!)
               : null,
           secureLabel: widget.brandSecureLabel,
         ),
-        flow: LivenessFlow(
+        flow: IdentityVerificationFlow(
           skipIntro: widget.skipIntro,
           skipPrepare: widget.skipPrepare,
         ),
-        theme: LivenessTheme(
-          colors: LivenessThemeColors(
+        theme: IdentityVerificationTheme(
+          colors: IdentityVerificationThemeColors(
             primary: widget.primary,
             secondary: widget.secondary,
             heading: widget.heading,
           ),
-          shape: LivenessThemeShape(radius: 100),
-          typography: LivenessThemeTypography(
+          shape: IdentityVerificationThemeShape(radius: 100),
+          typography: IdentityVerificationThemeTypography(
             fontFamily: "Inter, system-ui, sans-serif",
           ),
         ),

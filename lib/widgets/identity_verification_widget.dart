@@ -1,19 +1,19 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'package:face_liveness_flutter_sdk/models/liveness_brand.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_error_model.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_flow.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_localization.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_screen_type.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_session_status.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_brand.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_error_model.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_flow.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_localization.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_result_model.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_screen_type.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_session_status.dart';
+import 'package:identity_verification_flutter_sdk/models/identity_verification_theme.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_result_model.dart';
 
-class FaceLivenessWidget extends StatefulWidget {
-  const FaceLivenessWidget({
+class IdentityVerificationWidget extends StatefulWidget {
+  const IdentityVerificationWidget({
     required this.verificationToken,
     this.brand,
     this.flow,
@@ -35,28 +35,28 @@ class FaceLivenessWidget extends StatefulWidget {
   final String verificationToken;
 
   /// Brand shown in the SDK chrome.
-  final LivenessBrand? brand;
+  final IdentityVerificationBrand? brand;
 
   /// Flow behavior, independent from visual theme.
-  final LivenessFlow? flow;
+  final IdentityVerificationFlow? flow;
 
   ///  Visual system tokens grouped by concern.
-  final LivenessTheme? theme;
+  final IdentityVerificationTheme? theme;
 
   /// SDK-owned screen copy, grouped by screen.
-  final LivenessLocalization? localization;
+  final IdentityVerificationLocalization? localization;
 
   /// Text overrides for the camera/capture step.
   final Map<String, String>? captureText;
 
   ///Fired when liveness passes (`result.passed === true`).
-  final void Function(LivenessResultModel? result)? onSuccess;
+  final void Function(IdentityVerificationResultModel? result)? onSuccess;
 
   /// Fired when liveness fails (`result.passed === false`).
-  final void Function(LivenessResultModel? result)? onFail;
+  final void Function(IdentityVerificationResultModel? result)? onFail;
 
   /// Fired on any error (session creation, results fetch, or AWS detector error).
-  final void Function(LivenessErrorModel? error)? onError;
+  final void Function(IdentityVerificationErrorModel? error)? onError;
 
   /// Fired when the user cancels the AWS capture.
   final void Function()? onCancel;
@@ -65,19 +65,22 @@ class FaceLivenessWidget extends StatefulWidget {
   final void Function()? onAnalysisComplete;
 
   /// Fired on every screen transition (telemetry).
-  final void Function(LivenessScreenType?)? onScreenChange;
+  final void Function(IdentityVerificationScreenType?)? onScreenChange;
 
   /// When provided, renders a "Continue" button on the success screen that calls this.
   final void Function()? onContinue;
 
   /// Called after the SDK validates the token/session state. status indicates the session state, and isEligible indicates whether the session is eligible for verification.
-  final void Function(LivenessSessionStatus?)? onSessionStatusChange;
+  final void Function(IdentityVerificationSessionStatus?)?
+  onSessionStatusChange;
 
   @override
-  State<FaceLivenessWidget> createState() => _FaceLivenessWidgetState();
+  State<IdentityVerificationWidget> createState() =>
+      _IdentityVerificationWidgetState();
 }
 
-class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
+class _IdentityVerificationWidgetState
+    extends State<IdentityVerificationWidget> {
   Map<String, dynamic> get parameter {
     return {
       'verificationToken': widget.verificationToken,
@@ -92,9 +95,9 @@ class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
   @override
   Widget build(BuildContext context) {
     return InAppWebView(
-      // initialUrlRequest: URLRequest(url: WebUri('https://192.168.31.17:5173/')),
-      initialFile:
-          'packages/face_liveness_flutter_sdk/assets/html/face_liveness.html',
+      initialUrlRequest: URLRequest(url: WebUri('https://192.168.31.17:5173/')),
+      // initialFile:
+      //     'packages/face_liveness_flutter_sdk/assets/html/face_liveness.html',
       initialSettings: InAppWebViewSettings(
         mediaPlaybackRequiresUserGesture: false,
         allowsInlineMediaPlayback: true,
@@ -120,8 +123,8 @@ class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
             if (args.isNotEmpty && args[0] is Map<String, dynamic>) {
               if (args[0].containsKey('result')) {
                 Map<String, dynamic> result = args[0]['result'];
-                LivenessResultModel livenessResult =
-                    LivenessResultModel.fromJson(result);
+                IdentityVerificationResultModel livenessResult =
+                    IdentityVerificationResultModel.fromJson(result);
                 widget.onSuccess?.call(livenessResult);
               }
             }
@@ -133,8 +136,8 @@ class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
             if (args.isNotEmpty && args[0] is Map<String, dynamic>) {
               if (args[0].containsKey('result')) {
                 Map<String, dynamic> result = args[0]['result'];
-                LivenessResultModel livenessResult =
-                    LivenessResultModel.fromJson(result);
+                IdentityVerificationResultModel livenessResult =
+                    IdentityVerificationResultModel.fromJson(result);
                 widget.onFail?.call(livenessResult);
               }
             }
@@ -147,7 +150,7 @@ class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
                 args.first is Map &&
                 (args.first as Map).containsKey('error')) {
               widget.onError?.call(
-                LivenessErrorModel.fromJson(args.first['error']),
+                IdentityVerificationErrorModel.fromJson(args.first['error']),
               );
             }
           },
@@ -171,7 +174,7 @@ class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
                 args.first is Map &&
                 (args.first as Map).containsKey('screen')) {
               widget.onScreenChange?.call(
-                LivenessScreenType.from(args.first['screen']),
+                IdentityVerificationScreenType.from(args.first['screen']),
               );
             }
           },
@@ -190,9 +193,9 @@ class _FaceLivenessWidgetState extends State<FaceLivenessWidget> {
             if (args.isNotEmpty && args[0] is Map<String, dynamic>) {
               if (args[0].containsKey('result')) {
                 Map<String, dynamic> result = args[0]['result'];
-                LivenessSessionStatus livenessStatus =
-                    LivenessSessionStatus.fromJson(result);
-                widget.onSessionStatusChange?.call(livenessStatus);
+                IdentityVerificationSessionStatus identityVerificationStatus =
+                    IdentityVerificationSessionStatus.fromJson(result);
+                widget.onSessionStatusChange?.call(identityVerificationStatus);
               }
             }
           },

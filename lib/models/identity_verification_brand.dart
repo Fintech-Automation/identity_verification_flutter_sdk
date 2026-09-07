@@ -1,4 +1,4 @@
-class LivenessBrand {
+class IdentityVerificationBrand {
   /// Brand text in the top-left chrome. Defaults to hidden.
   final String? name;
 
@@ -8,7 +8,7 @@ class LivenessBrand {
   /// Top-right security label; pass `''` to hide.
   final String? secureLabel;
 
-  const LivenessBrand({this.name, this.logoUrl, this.secureLabel});
+  const IdentityVerificationBrand({this.name, this.logoUrl, this.secureLabel});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

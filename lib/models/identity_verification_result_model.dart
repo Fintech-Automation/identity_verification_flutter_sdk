@@ -1,11 +1,11 @@
-class LivenessResultModel {
+class IdentityVerificationResultModel {
   String? id;
   String? status;
   String? failReason;
   String? createdTime;
   String? completedTime;
 
-  LivenessResultModel({
+  IdentityVerificationResultModel({
     this.id,
     this.status,
     this.failReason,
@@ -13,7 +13,7 @@ class LivenessResultModel {
     this.completedTime,
   });
 
-  LivenessResultModel.fromJson(Map<String, dynamic> json) {
+  IdentityVerificationResultModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     status = json['status'];
     failReason = json['fail_reason'];

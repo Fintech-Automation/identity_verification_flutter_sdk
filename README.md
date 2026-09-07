@@ -1,7 +1,7 @@
-# FTA Face Liveness SDK Overview
+# FTA IdentityVerification SDK Overview
 
-`@fintech-automation/face_liveness_flutter_SDK` is a branded Flutter SDK around a managed
-face liveness capture engine. It provides:
+`@fintech-automation/identity_verification_flutter_SDK` is a branded Flutter SDK around a managed
+IdentityVerification capture engine. It provides:
 
 - FTA backend session creation and result lookup.
 - Built-in runtime configuration.
@@ -18,26 +18,26 @@ intro -> prepare -> capture -> processing -> success | fail | error
 ## Installation
 
 ```yaml
-face_liveness_flutter_sdk:
+identity_verification_flutter_sdk:
     git:
-        url: https://github.com/Fintech-Automation/face_liveness_flutter_sdk.git
+        url: https://github.com/Fintech-Automation/identity_verification_flutter_sdk.git
         ref: 1.0.0
 ```
 
 ## Usage
 
 ```dart
-import 'package:face_liveness_flutter_sdk/face_liveness_flutter_sdk.dart';
+import 'package:identity_verification_flutter_sdk/widgets/identity_verification_widget.dart';
 
-FaceLivenessWidget(
+IdentityVerificationWidget(
     verificationToken: 'YOUR_TOKEN',
-    onSuccess: (result) => print('Liveness check succeeded: ${result?.toJson()}'),
-    onFail: (result) => ('Liveness check failed: ${result?.toJson()}'),
-    onCancel: () => print('Liveness check canceled'),
-    onContinue: () => print('Liveness continue'),
-    onError: (error) => print('Liveness check error: ${error?.toJson()}'),
-    onScreenChange: (screen) => print('to Liveness Screen: ${screen}'),
-    onAnalysisComplete: () => print('Liveness check Analysis Complete'),
+    onSuccess: (result) => print('IdentityVerification check succeeded: ${result?.toJson()}'),
+    onFail: (result) => ('IdentityVerification check failed: ${result?.toJson()}'),
+    onCancel: () => print('IdentityVerification check canceled'),
+    onContinue: () => print('IdentityVerification continue'),
+    onError: (error) => print('IdentityVerification check error: ${error?.toJson()}'),
+    onScreenChange: (screen) => print('to IdentityVerification Screen: ${screen}'),
+    onAnalysisComplete: () => print('IdentityVerification check Analysis Complete'),
 ),
 ```
 
@@ -45,7 +45,7 @@ FaceLivenessWidget(
 
 Obtain a `verificationToken` before rendering the component, then pass it through
 the `verificationToken` prop. For the API request and response details, refer to the
-[UniFi Face Liveness API documentation](https://api-docs.accelerationcloud.com/resource/unifi-face-liveness).
+[Identity Verification API documentation](https://api-docs.accelerationcloud.info/resource/unifi-identity-verification).
 
 
 ## Component Props
@@ -54,8 +54,8 @@ Top-level props are reserved for session/runtime parameters:
 
 ### Required Backend Parameters
 
-To communicate with the Face Liveness backend, pass all of the following
-parameters explicitly. The liveness session cannot be created or queried
+To communicate with the IdentityVerification backend, pass all of the following
+parameters explicitly. The IdentityVerification session cannot be created or queried
 correctly without valid values for them.
 
 | Parameter | Purpose |
@@ -66,39 +66,39 @@ correctly without valid values for them.
 | Prop           | Type                     | Required | Default        | Description                                     |
 | -------------- | ------------------------ | -------- | -------------- | ----------------------------------------------- |
 | `verificationToken`  | `String`                 | Yes      | none           | Bearer token used to authenticate backend APIs. |
-| `flow`         | `LivenessFlow`           | No       | SDK defaults   | Flow behavior.                                  |
-| `brand`        | `LivenessBrand`          | No       | SDK defaults   | Brand shown in the SDK header.                  |
-| `theme`        | `LivenessTheme`          | No       | SDK defaults   | Visual system tokens.                           |
-| `localization` | `LivenessLocalization`   | No       | SDK defaults   | SDK-owned screen copy.                          |
-| `onSuccess`    | `void Function(LivenessResultModel?)`      | No       | none           | Called after the backend returns a successful liveness result.|
-| `onFail`    | `void Function(LivenessResultModel?)`      | No       | none           | Called after the backend returns a non-passing or failed result. |
-| `onError`    | `void Function(LivenessErrorModel?)`      | No       | none           | Called when a session, camera, capture, or result-fetch error occurs. |
+| `flow`         | `IdentityVerificationFlow`           | No       | SDK defaults   | Flow behavior.                                  |
+| `brand`        | `IdentityVerificationBrand`          | No       | SDK defaults   | Brand shown in the SDK header.                  |
+| `theme`        | `IdentityVerificationTheme`          | No       | SDK defaults   | Visual system tokens.                           |
+| `localization` | `IdentityVerificationLocalization`   | No       | SDK defaults   | SDK-owned screen copy.                          |
+| `onSuccess`    | `void Function(IdentityVerificationResultModel?)`      | No       | none           | Called after the backend returns a successful IdentityVerification result.|
+| `onFail`    | `void Function(IdentityVerificationResultModel?)`      | No       | none           | Called after the backend returns a non-passing or failed result. |
+| `onError`    | `void Function(IdentityVerificationErrorModel?)`      | No       | none           | Called when a session, camera, capture, or result-fetch error occurs. |
 | `onCancel`    | `void Function()`      | No       | none           | Called when the user cancels the live capture flow. |
 | `onAnalysisComplete`    | `void Function()`      | No       | none           | Called when the capture detector finishes analysis and the SDK begins fetching backend results. |
-| `onSessionStatusChange` | `void Function(LivenessSessionStatus?)?` | No       | none              | Called after the SDK validates the token/session state. status indicates the session state, and isEligible indicates whether the session is eligible for verification. |
-| `onScreenChange`    | `void Function(LivenessScreenType?)`      | No       | none           | Called when the flow changes screens. |
+| `onSessionStatusChange` | `void Function(IdentityVerificationSessionStatus?)?` | No       | none              | Called after the SDK validates the token/session state. status indicates the session state, and isEligible indicates whether the session is eligible for verification. |
+| `onScreenChange`    | `void Function(IdentityVerificationScreenType?)`      | No       | none           | Called when the flow changes screens. |
 | `onContinue`    | `void Function()`      | No       | none           | Called when the user taps Continue on the success screen. |
 
 
 ### SessionStatus values
 
-- `COMPLETED`: The token already completed the liveness check successfully.
+- `COMPLETED`: The token already completed the IdentityVerification check successfully.
 - `EXPIRED`: The token has expired or the backend returned an auth/session-expired response.
 - `INVALID`: The token is invalid, rejected, or otherwise failed validation.
-- `READY`: Session token is valid and ready for liveness detection.
+- `READY`: Session token is valid and ready for IdentityVerification detection.
 - `RETRY_LIMIT_EXCEEDED`: Retry limit exceeded — no further attempts allowed.
 
 
 ### Result Class
 ```dart
-class LivenessResultModel {
+class IdentityVerificationResultModel {
   String? id;
   String? status;
   String? failReason;
   String? createdTime;
   String? completedTime;
 
-  LivenessResultModel({
+  IdentityVerificationResultModel({
     this.id,
     this.status,
     this.failReason,
@@ -111,7 +111,7 @@ class LivenessResultModel {
 ## Brand Class
 
 ```dart
-class LivenessBrand {
+class IdentityVerificationBrand {
   /// Brand text in the top-left chrome. Defaults to hidden.
   final String? name;
 
@@ -121,7 +121,7 @@ class LivenessBrand {
   /// Top-right security label; pass `''` to hide.
   final String? secureLabel;
 
-  const LivenessBrand({this.name, this.logoUrl, this.secureLabel});
+  const IdentityVerificationBrand({this.name, this.logoUrl, this.secureLabel});
 }
 ```
 
@@ -135,21 +135,21 @@ class LivenessBrand {
 > **Note:** The brand mark is rendered with the following priority:
 > 
 > 1. **`logoUrl`** – If no `logo` is provided, we'll display your image.
-> 2. **`name`** – As a last resort, we'll generate a clean initials-based mark (e.g., "Face Liveness" → "FL") to keep the UI tidy.
+> 2. **`name`** – As a last resort, we'll generate a clean initials-based mark (e.g., "Company Name" → "CN") to keep the UI tidy.
 > 
 > This ensures your brand identity always appears — whether as a rich component, an image, or a simple text abbreviation. ✨
 
 ## Flow Class
 
 ```dart
-class LivenessFlow {
+class IdentityVerificationFlow {
   /// Starts at Prepare instead of Intro.
   final bool? skipIntro;
 
   /// Goes straight to capture after Intro, or immediately when `skipIntro` is also true.
   final bool? skipPrepare;
 
-  const LivenessFlow({this.skipIntro, this.skipPrepare});
+  const IdentityVerificationFlow({this.skipIntro, this.skipPrepare});
 
 }
 ```
@@ -162,18 +162,18 @@ class LivenessFlow {
 ## Theme
 
 ```dart
-FaceLivenessWidget(
-    theme: LivenessTheme(
-        colors: LivenessThemeColors(
-        primary: '#1634A4',
-        secondary: '#1A3DBF',
-        heading: '#111827',
-        ),
-        shape: LivenessThemeShape(radius: 22),
-        typography: LivenessThemeTypography(
-            fontFamily: "Inter, system-ui, sans-serif",
-        ),
+IdentityVerificationWidget(
+  theme: IdentityVerificationTheme(
+    colors: IdentityVerificationThemeColors(
+    primary: '#1634A4',
+    secondary: '#1A3DBF',
+    heading: '#111827',
     ),
+    shape: IdentityVerificationThemeShape(radius: 22),
+    typography: IdentityVerificationThemeTypography(
+        fontFamily: "Inter, system-ui, sans-serif",
+    ),
+  ),
 )
 ```
 
@@ -190,22 +190,22 @@ FaceLivenessWidget(
 `localization` customizes SDK-owned screens and is grouped by screen.
 
 ```dart
-class LivenessLocalization {
-  LivenessLocalizationIntro? intro;
+class IdentityVerificationLocalization {
+  IdentityVerificationLocalizationIntro? intro;
 
-  LivenessLocalizationPrepare? prepare;
+  IdentityVerificationLocalizationPrepare? prepare;
 
-  LivenessLocalizationPageElements? starting;
+  IdentityVerificationLocalizationPageElements? starting;
 
-  LivenessLocalizationPageElements? processing;
+  IdentityVerificationLocalizationPageElements? processing;
 
-  LivenessLocalizationResultElements? success;
+  IdentityVerificationLocalizationResultElements? success;
 
-  LivenessLocalizationResultElements? fail;
+  IdentityVerificationLocalizationResultElements? fail;
 
-  LivenessLocalizationPageElements? cameraPermission;
+  IdentityVerificationLocalizationPageElements? cameraPermission;
 
-  LivenessLocalization({
+  IdentityVerificationLocalization({
     this.intro,
     this.prepare,
     this.starting,
@@ -216,7 +216,7 @@ class LivenessLocalization {
   });
 }
 
-class LivenessLocalizationIntro {
+class IdentityVerificationLocalizationIntro {
   String? eyebrow;
   String? title;
   String? body;
@@ -225,7 +225,7 @@ class LivenessLocalizationIntro {
   /// Small trust line under the intro CTA; pass `''` to hide.
   String? trustLabel;
 
-  LivenessLocalizationIntro({
+  IdentityVerificationLocalizationIntro({
     this.eyebrow,
     this.title,
     this.body,
@@ -234,21 +234,21 @@ class LivenessLocalizationIntro {
   });
 }
 
-class LivenessLocalizationPageElements {
+class IdentityVerificationLocalizationPageElements {
   String? title;
   String? body;
-  LivenessLocalizationPageElements({this.title, this.body});
+  IdentityVerificationLocalizationPageElements({this.title, this.body});
 
 }
 
-class LivenessLocalizationPrepare {
+class IdentityVerificationLocalizationPrepare {
   String? eyebrow;
   String? title;
-  List<LivenessLocalizationPageElements>? tips;
+  List<IdentityVerificationLocalizationPageElements>? tips;
   String? cta;
   String? backLabel;
 
-  LivenessLocalizationPrepare({
+  IdentityVerificationLocalizationPrepare({
     this.eyebrow,
     this.title,
     this.tips,
@@ -257,11 +257,11 @@ class LivenessLocalizationPrepare {
   });
 }
 
-class LivenessLocalizationResultElements
-    extends LivenessLocalizationPageElements {
+class IdentityVerificationLocalizationResultElements
+    extends IdentityVerificationLocalizationPageElements {
   String? cta;
 
-  LivenessLocalizationResultElements({super.title, super.body, this.cta});
+  IdentityVerificationLocalizationResultElements({super.title, super.body, this.cta});
 
 }
 
@@ -279,7 +279,7 @@ class LivenessLocalizationResultElements
 
 | `prepare.eyebrow` | `String` | Overline text for the prepare screen. |
 | `prepare.title` | `String` | Main heading for the prepare screen. |
-| `prepare.tips` | `List<LivenessLocalizationPageElements>` | Array of tip objects displayed as a short checklist. |
+| `prepare.tips` | `List<IdentityVerificationLocalizationPageElements>` | Array of tip objects displayed as a short checklist. |
 | `prepare.cta` | `String` | Primary action label on the prepare screen. |
 | `prepare.backLabel` | `String` | Back button label on the prepare screen. |
 
@@ -302,18 +302,18 @@ class LivenessLocalizationResultElements
 
 ## Notes
 
-- The camera capture step owns the camera oval geometry and liveness model flow.
+- The camera capture step owns the camera oval geometry and IdentityVerification model flow.
   This SDK themes the surrounding UI and supported capture theme tokens.
 - The underlying capture runtime uses process-global client configuration. If a
   host app also configures the same provider runtime, mount this SDK with that
   shared global behavior in mind.
 - Camera capture requires browser camera permission, HTTPS in production, WebGL,
-  and network access to liveness assets.
+  and network access to IdentityVerification assets.
 - Bundled runtime ids are public client identifiers. Privileged operations stay
   on the FTA backend.
 
 ## License
 
-This repository includes the FinTech Face Liveness SDK, which is licensed under a Commercial License Agreement. See [COMMERCIAL-LICENSE.md](./COMMERCIAL-LICENSE.md) for full terms.
+This repository includes the FinTech IdentityVerification SDK, which is licensed under a Commercial License Agreement. See [COMMERCIAL-LICENSE.md](./COMMERCIAL-LICENSE.md) for full terms.
 
 Use of this SDK requires explicit permission from FinTech Automation.

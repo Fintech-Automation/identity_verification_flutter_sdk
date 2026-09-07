@@ -1,10 +1,11 @@
 import 'package:example/face_liveness_page.dart';
-import 'package:face_liveness_flutter_sdk/models/liveness_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:identity_verification_flutter_sdk/models/identity_verification_localization.dart';
 
 class InputParameterPage extends StatefulWidget {
   const InputParameterPage({super.key});
@@ -242,14 +243,14 @@ class _InputParameterPageState extends State<InputParameterPage> {
               'Parameters',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            TextFormField(
-              controller: backendUrl,
-              decoration: InputDecoration(label: Text('Backend Url')),
-            ),
-            TextFormField(
-              controller: tenant,
-              decoration: InputDecoration(label: Text('Tenant')),
-            ),
+            // TextFormField(
+            //   controller: backendUrl,
+            //   decoration: InputDecoration(label: Text('Backend Url')),
+            // ),
+            // TextFormField(
+            //   controller: tenant,
+            //   decoration: InputDecoration(label: Text('Tenant')),
+            // ),
             TextFormField(
               controller: localization,
               minLines: 10,
@@ -393,9 +394,10 @@ class _InputParameterPageState extends State<InputParameterPage> {
                                       enableAlpha: false,
                                     )
                                   : null,
-                              localization: LivenessLocalization.fromJson(
-                                jsonDecode(localization.text),
-                              ),
+                              localization:
+                                  IdentityVerificationLocalization.fromJson(
+                                    jsonDecode(localization.text),
+                                  ),
                               // captureText: captureTextMap,
                             ),
                           ),

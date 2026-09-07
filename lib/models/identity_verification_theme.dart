@@ -1,13 +1,13 @@
-class LivenessTheme {
-  final LivenessThemeColors? colors;
+class IdentityVerificationTheme {
+  final IdentityVerificationThemeColors? colors;
 
-  final LivenessThemeShape? shape;
+  final IdentityVerificationThemeShape? shape;
 
-  final LivenessThemeTypography? typography;
+  final IdentityVerificationThemeTypography? typography;
 
-  // final LivenessThemeLayout? layout;
+  // final IdentityVerificationThemeLayout? layout;
 
-  const LivenessTheme({
+  const IdentityVerificationTheme({
     this.colors,
     this.shape,
     this.typography /*this.layout*/,
@@ -23,7 +23,7 @@ class LivenessTheme {
   }
 }
 
-class LivenessThemeColors {
+class IdentityVerificationThemeColors {
   /// Main brand color. Drives buttons, progress, loader, focus, and capture primary tokens.
   final String? primary;
 
@@ -56,7 +56,7 @@ class LivenessThemeColors {
   /// Primary button text color. Auto-computed as black or white based on primary luminance; override to use a custom color.
   final String? primaryText;
 
-  const LivenessThemeColors({
+  const IdentityVerificationThemeColors({
     this.primary,
     this.secondary,
     this.heading,
@@ -86,11 +86,11 @@ class LivenessThemeColors {
   }
 }
 
-class LivenessThemeShape {
+class IdentityVerificationThemeShape {
   /// Root/card corner radius in pixels.
   final num? radius;
 
-  const LivenessThemeShape({this.radius});
+  const IdentityVerificationThemeShape({this.radius});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -99,11 +99,11 @@ class LivenessThemeShape {
   }
 }
 
-class LivenessThemeTypography {
+class IdentityVerificationThemeTypography {
   /// Font family used by wrapper screens and capture theme.
   final String? fontFamily;
 
-  const LivenessThemeTypography({this.fontFamily});
+  const IdentityVerificationThemeTypography({this.fontFamily});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -112,14 +112,14 @@ class LivenessThemeTypography {
   }
 }
 
-class LivenessThemeLayout {
+class IdentityVerificationThemeLayout {
   /// Card width. Number values are treated as pixels.
   final num? width;
 
   /// Uses a full-height mobile/portrait tablet layout.
   final bool? fullscreen;
 
-  const LivenessThemeLayout({this.width, this.fullscreen});
+  const IdentityVerificationThemeLayout({this.width, this.fullscreen});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

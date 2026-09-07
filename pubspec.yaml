@@ -1,10 +1,10 @@
-name: face_liveness_flutter_sdk
-description: "face liveness flutter sdk"
+name: identity_verification_flutter_sdk
+description: "identity verification flutter sdk"
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.12.2
   flutter: ">=1.17.0"
 
 dependencies:
@@ -16,7 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -27,7 +27,6 @@ flutter:
   # To add assets to your package, add an assets section, like this:
   assets:
     - assets/html/face_liveness.html
-  #   - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
