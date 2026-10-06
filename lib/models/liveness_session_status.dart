@@ -30,11 +30,29 @@ class LivenessSessionStatus {
 }
 
 enum SessionStatus {
+  /// The token already completed verification successfully (liveness, and face-comparison for an identity-verification session).
   completed('COMPLETED'),
+
+  /// The token has expired or the backend returned an auth/session-expired response.
   expired('EXPIRED'),
+
+  ///  The token is invalid, rejected, or otherwise failed validation.
   invalid('INVALID'),
+
+  /// Session token is valid and ready for liveness detection.
   ready('READY'),
-  readyRetryLimitExceeded('RETRY_LIMIT_EXCEEDED');
+
+  /// Retry limit exceeded — no further attempts allowed.
+  readyRetryLimitExceeded('RETRY_LIMIT_EXCEEDED'),
+
+  /// No verificationToken was supplied to the component.
+  missingToken('MISSING_TOKEN'),
+
+  /// Liveness already passed on an earlier visit, but identity/document verification is still required — the flow resumes directly on the identity screen.
+  identityRequired('IDENTITY_REQUIRED'),
+
+  ///  Liveness already passed on an earlier visit, but identity/document (face-comparison) verification failed.
+  identityFailed('IDENTITY_FAILED');
 
   final String displayName;
   const SessionStatus(this.displayName);

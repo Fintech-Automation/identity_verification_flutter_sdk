@@ -26,8 +26,10 @@ class IdentityVerificationWidget extends StatefulWidget {
     this.onCancel,
     this.onAnalysisComplete,
     this.onScreenChange,
-    this.onContinue,
+    this.onFinish,
     this.onSessionStatusChange,
+    this.onIdentityInfoSubmit,
+    this.onIdentityInfoError,
     super.key,
   });
 
@@ -67,11 +69,17 @@ class IdentityVerificationWidget extends StatefulWidget {
   /// Fired on every screen transition (telemetry).
   final void Function(LivenessScreenType?)? onScreenChange;
 
-  /// When provided, renders a "Continue" button on the success screen that calls this.
-  final void Function()? onContinue;
+  /// Called when the user taps Finish on the success screen.
+  final void Function()? onFinish;
 
   /// Called after the SDK validates the token/session state. status indicates the session state, and isEligible indicates whether the session is eligible for verification.
   final void Function(LivenessSessionStatus?)? onSessionStatusChange;
+
+  /// Called after the identity/document form is successfully submitted to the backend. Only relevant for an identity-verification session.
+  final void Function(Map<String, dynamic>?)? onIdentityInfoSubmit;
+
+  /// Called when submitting the identity/document form fails.
+  final void Function(Map<String, dynamic>?)? onIdentityInfoError;
 
   @override
   State<IdentityVerificationWidget> createState() =>
@@ -179,22 +187,45 @@ class _IdentityVerificationWidgetState
           },
         );
         controller.addJavaScriptHandler(
-          handlerName: 'onContinue',
+          handlerName: 'onFinish',
           callback: (args) {
-            widget.onContinue?.call();
+            widget.onFinish?.call();
           },
         );
 
         controller.addJavaScriptHandler(
           handlerName: 'onSessionStatusChange',
           callback: (args) {
-            print(args);
             if (args.isNotEmpty && args[0] is Map<String, dynamic>) {
               if (args[0].containsKey('result')) {
                 Map<String, dynamic> result = args[0]['result'];
                 LivenessSessionStatus LivenessStatus =
                     LivenessSessionStatus.fromJson(result);
                 widget.onSessionStatusChange?.call(LivenessStatus);
+              }
+            }
+          },
+        );
+
+        controller.addJavaScriptHandler(
+          handlerName: 'onIdentityInfoSubmit',
+          callback: (args) {
+            if (args.isNotEmpty && args[0] is Map<String, dynamic>) {
+              if (args[0].containsKey('result')) {
+                Map<String, dynamic> result = args[0]['result'];
+                widget.onIdentityInfoSubmit?.call(result);
+              }
+            }
+          },
+        );
+
+        controller.addJavaScriptHandler(
+          handlerName: 'onIdentityInfoError',
+          callback: (args) {
+            if (args.isNotEmpty && args[0] is Map<String, dynamic>) {
+              if (args[0].containsKey('error')) {
+                Map<String, dynamic> result = args[0]['error'];
+                widget.onIdentityInfoError?.call(result);
               }
             }
           },

@@ -80,7 +80,7 @@ class _FaceLivenessPageState extends State<FaceLivenessPage> {
           print('Liveness check failed: ${result?.toJson()}');
         },
         onCancel: () => print('Liveness check canceled'),
-        onContinue: () {
+        onFinish: () {
           Navigator.of(context).pop();
         },
         onError: (error) => print('Liveness check error: ${error?.toJson()}'),
@@ -91,10 +91,13 @@ class _FaceLivenessPageState extends State<FaceLivenessPage> {
           if (status?.status == SessionStatus.readyRetryLimitExceeded ||
               status?.status == SessionStatus.expired ||
               status?.status == SessionStatus.invalid) {
-            Future.delayed(const Duration(milliseconds: 2500), () {
-              Navigator.of(context).pop(status?.status?.displayName);
-            });
+            // Future.delayed(const Duration(milliseconds: 2500), () {
+            //   Navigator.of(context).pop(status?.status?.displayName);
+            // });
           }
+        },
+        onIdentityInfoSubmit: (status) {
+          print('Liveness check Identity Info Submit: ${status ?? ''}');
         },
       ),
     );
